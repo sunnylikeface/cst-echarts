@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cst-ECharts</title>
+    <script src="js/echarts.js"></script>
+    <link rel="stylesheet" href="css/e1.css">
+</head>
+<body>
+<div class="zhy-screen">
+    <div class="zhy-tit flex-box">
+        <div class="zhy-tel flex-box">
+            <img src="img/a1.png" alt="">
+
+            <span>手机号</span>
+            <span id="zhy-tel">12345678900</span>
+        </div>
+        <div class="zhy-LPN flex-box">
+            <img src="img/a2.png" alt="">
+            <span>车牌号</span>
+            <span id="zhy-LPN">渝A 12345</span>
+        </div>
+
+    </div>
+    <div class="zhy-con">
+        <div class="zhy-con1">
+            基于近十二个月的行为计算
+        </div>
+        <div class="zhy-con2">
+            最近一次的风险评估: <span>A</span>
+        </div>
+        <div class="zhy-con3 flex-box">
+            <div class="zhy-con3-1 flex-box">
+                <div class="zhy-con3-11 flex-box">
+                    <img src="img/a4.png" alt="">
+                    <span>行驶总行驶里程:</span>
+                    <span class="green1">1000公里</span>
+                </div>
+                <div class="zhy-con3-12">
+                    <span>整体排行:</span>
+                    <span class="green1">212</span>
+                </div>
+            </div>
+            <div class="zhy-con3-2 flex-box">
+                <div class="zhy-con3-21 flex-box">
+                    <img src="img/a5.png" alt="">
+                    <span>急加油次数:</span>
+                    <span class="green1">3次</span>
+                </div>
+                <div class="zhy-con3-22">
+                    <span>整体排行:</span>
+                    <span class="green1">234</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="zhy-charts">
+        <div class="flex-box">
+            <span class="zhy-chart" id="zhy-cha1"></span>
+            <span class="zhy-chart" id="zhy-cha2"></span>
+
+        </div>
+        <div class="flex-box">
+            <span class="zhy-chart" id="zhy-cha3"></span>
+            <span class="zhy-chart" id="zhy-cha4"></span>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+  <script type="text/javascript">
+      var myChart1=echarts.init(document.getElementById('zhy-cha1')),
+          myChart2=echarts.init(document.getElementById('zhy-cha2')),
+          myChart3=echarts.init(document.getElementById('zhy-cha3')),
+          myChart4=echarts.init(document.getElementById('zhy-cha4')),
+          data1=['A','A','B','C','D','D','B','C','D','D','B','B'],
+          data2=[3,5,10,3,8,7,9,1,0,5,10,12],
+          data3=[25,60,77,55,33,80,56,50,100,10,15,45],
+          data4=[6,0,28,11,20,8,7,6,15,20,2,22];
+
+
+      var option1= {
+          title:{
+              text:'风险评估等级',
+              x:'center',
+              y:'15',
+              textStyle:{
+                  fontSize:18,
+                  fontWeight:'500',
+                  color:'#fff'
+              }
+          },
+          grid:{
+              x:50,
+              y:70,
+              x2:50,
+              y2:55
+              /*borderWidth:1*/
+          },
+          color:'#fff',
+          tooltip:{//鼠标悬浮弹框提示
+              trigger:'axis',
+              /*trigger:'item',*/
+              show:true,
+              showDelay:0,
+              hideDelay:0,
+              transitionDuration:0,
+              /*borderColor : '#f50',*/
+              borderRadius : 8,
+              borderWidth: 2,
+              padding: 10,    // [5, 10, 15, 20]
+              formatter: function (params) {
+                  var relVal = params[0].name+'<br>等级:'+params[0].value;
+                  /*for (var i = 0, l = params.length; i < l; i++) {
+                      relVal +='<br>等级: ' + params[i].value
+                  }*/
+                  return relVal;
+              }
+          },
+          xAxis: {
+              type: 'category',
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月','9月','10月','11月','12月'],
+              /*boundaryGap: false,//刻度前后留白*/
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              },
+              axisTick:{
+                  alignWithLabel:true//坐标刻度对齐
+              }
+          },
+          yAxis: {
+              type: 'category',
+              data: ['A','B','C','D'],
+              axisTick:{
+                  alignWithLabel:true,//坐标刻度对齐
+                  show:false//刻度显示
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          series: [{
+              data: data1,
+              type: 'line'
+          }]
+      },
+      option2= {
+          title:{
+              text:'高速行驶天数',
+              x:'center',
+              y:'28',
+              textStyle:{
+                  fontSize:18,
+                  fontWeight:'500',
+                  color:'#fff'
+              }
+          },
+          grid:{
+              x:50,
+              y:75,
+              x2:50,
+              y2:55
+          },
+          color:'#fff',
+          tooltip:{
+              trigger:'axis',
+              show:true,
+              borderRadius : 8,
+              borderWidth: 2,
+              padding: 10,    // [5, 10, 15, 20]
+              formatter: function (params) {
+                  var relVal = params[0].name+'<br>等级:'+params[0].value;
+                  return relVal;
+              }
+          },
+          xAxis: {
+              type: 'category',
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月','9月','10月','11月','12月'],
+              axisTick:{
+                  alignWithLabel:true
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          yAxis: {
+              type: 'value',
+              data: [2,4,6,8,10,12],
+              axisTick:{
+                  show:false
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              },
+              splitLine:{
+                  show:true,
+                  lineStyle:{
+                      color:'#2af',
+                      width:1,
+                      type:'solid'
+                  }
+              }
+          },
+          series: [{
+              data: data2,
+              type: 'line'
+          }]
+      },
+      option3= {
+          title:{
+              text:'平均速度Km/h',
+              x:'center',
+              y:'28',
+              textStyle:{
+                  fontSize:18,
+                  fontWeight:'500',
+                  color:'#fff',
+              }
+          },
+          color:'#fff',
+          tooltip:{
+              trigger:'axis'
+          },
+          xAxis: {
+              type: 'category',
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月','9月','10月','11月','12月'],
+              axisTick:{
+                  alignWithLabel:true//坐标刻度对齐
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          yAxis: {
+              type: 'value',
+              data: ['20','40','60','80','100','120'],
+              axisTick:{
+                  show:false
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          series: [{
+              data: data3,
+              type: 'line'
+          }]
+      },
+      option4= {
+          title:{
+              text:'急刹车次数',
+              x:'center',
+              y:'28',
+              textStyle:{
+                  fontSize:18,
+                  fontWeight:'500',
+                  color:'#fff',
+              }
+          },
+          color:'#fff',
+          tooltip : {
+              /*enterable:true,*/
+              trigger: 'axis',
+              /*axisPointer : {
+                  type : ''
+              }*/
+          },
+          xAxis: {
+              type: 'category',
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月','9月','10月','11月','12月'],
+              axisTick:{
+                  alignWithLabel:true//坐标刻度对齐
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          yAxis: {
+              type: 'value',
+              data: ['5','10','15','20','25','30'],
+              axisTick:{
+                  show:false
+              },
+              axisLine:{
+                  lineStyle:{
+                      color:'#fff',
+                      width:2,
+                      opacity:.3
+                  }
+              }
+          },
+          series: [{
+              data: data4,
+              type: 'line'
+          }]
+      };
+      myChart1.setOption(option1);
+      myChart2.setOption(option2);
+      myChart3.setOption(option3);
+      myChart4.setOption(option4)
+  </script>
+</body>
+</html>
